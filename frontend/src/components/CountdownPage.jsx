@@ -108,12 +108,8 @@ const CountdownPage = ({ targetDate, onCountdownComplete }) => {
           <div className="mb-12 animate-fadeIn">
             <div className="flex items-center justify-center gap-3 mb-4">
               <Sparkles className="text-pink-400" size={32} />
-              <h1 className="text-5xl md:text-7xl font-bold" style={{ 
-                color: '#8B4513',
-                fontFamily: 'Georgia, serif',
-                textShadow: '2px 2px 4px rgba(139, 69, 19, 0.1)'
-              }}>
-                Anjali
+              <h1 className="text-5xl md:text-7xl font-bold" style={{ color: '#8B4513' }}>
+                {girlfriendName}
               </h1>
               <Sparkles className="text-pink-400" size={32} />
             </div>
