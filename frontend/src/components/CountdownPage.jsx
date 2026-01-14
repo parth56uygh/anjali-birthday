@@ -96,15 +96,15 @@ const CountdownPage = ({ targetDate, onCountdownComplete }) => {
           </div>
 
           {/* Header */}
-          <div className="mb-12 animate-fadeIn">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Sparkles className="text-pink-400" size={32} />
-              <h1 className="text-5xl md:text-7xl font-bold" style={{ color: '#8B4513' }}>
+          <div className="mb-8 sm:mb-12 animate-fadeIn">
+            <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4">
+              <Sparkles className="text-pink-400" size={24} />
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold" style={{ color: '#8B4513' }}>
                 {data.settings.girlfriendName}
               </h1>
-              <Sparkles className="text-pink-400" size={32} />
+              <Sparkles className="text-pink-400" size={24} />
             </div>
-            <p className="text-2xl md:text-3xl font-medium" style={{ 
+            <p className="text-lg sm:text-2xl md:text-3xl font-medium" style={{ 
               color: '#A0522D',
               fontFamily: 'Georgia, serif' 
             }}>
@@ -113,7 +113,7 @@ const CountdownPage = ({ targetDate, onCountdownComplete }) => {
           </div>
 
           {/* Countdown */}
-          <div className="grid grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 md:gap-8 w-full">
             {[
               { label: 'Days', value: timeLeft.days },
               { label: 'Hours', value: timeLeft.hours },
@@ -122,20 +122,20 @@ const CountdownPage = ({ targetDate, onCountdownComplete }) => {
             ].map((item, index) => (
               <div
                 key={item.label}
-                className="countdown-card bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg relative"
+                className="countdown-card bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-6 md:p-8 shadow-lg relative"
                 style={{
                   animation: `scaleIn 0.5s ease-out ${index * 0.1}s backwards`,
-                  border: '3px solid #d4c4b0',
+                  border: '2px solid #d4c4b0',
                   background: 'linear-gradient(135deg, #fff8f0 0%, #fdf6ed 100%)',
                   boxShadow: '0 4px 15px rgba(139, 69, 19, 0.15)'
                 }}>
-                <div className="text-4xl md:text-6xl font-bold mb-2" style={{ 
+                <div className="text-2xl sm:text-4xl md:text-6xl font-bold mb-1 sm:mb-2" style={{ 
                   color: '#8B4513',
                   fontFamily: 'Georgia, serif' 
                 }}>
                   {String(item.value).padStart(2, '0')}
                 </div>
-                <div className="text-sm md:text-lg font-medium uppercase tracking-wider" style={{ color: '#A0522D' }}>
+                <div className="text-xs sm:text-sm md:text-lg font-medium uppercase tracking-wider" style={{ color: '#A0522D' }}>
                   {item.label}
                 </div>
               </div>
