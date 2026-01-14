@@ -14,14 +14,14 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('admin_token');
-    if (!token) {
+    const isLoggedIn = localStorage.getItem('admin_logged_in');
+    if (!isLoggedIn) {
       navigate('/admin/login');
     }
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_logged_in');
     navigate('/admin/login');
   };
 
