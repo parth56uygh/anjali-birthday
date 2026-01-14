@@ -247,7 +247,8 @@ async def upload_photo(
     )
     await db.photos.insert_one(new_photo.dict())
     
-    backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001')
+    # Use APP_URL which Emergent provides, fallback to REACT_APP_BACKEND_URL for local dev
+    backend_url = os.environ.get('APP_URL', os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001'))
     
     return {
         "success": True,
