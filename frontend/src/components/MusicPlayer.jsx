@@ -52,8 +52,12 @@ const MusicPlayer = ({ playlist }) => {
                   }}>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-bold text-purple-700">{track.title}</p>
-                      <p className="text-sm text-purple-600">{track.artist} • {track.album}</p>
+                      <p className="font-bold" style={{ color: '#8B4513', fontFamily: 'Georgia, serif' }}>
+                        {track.title}
+                      </p>
+                      <p className="text-sm" style={{ color: '#A0522D' }}>
+                        {track.artist} • {track.album}
+                      </p>
                     </div>
                     {currentTrackIndex === index && isPlaying && (
                       <div className="flex gap-1">
