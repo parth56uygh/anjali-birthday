@@ -1,52 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Save } from 'lucide-react';
-import axios from 'axios';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+import { useData } from '../../context/DataContext';
 
 const LoveLetterTab = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const { data, updateLoveLetter } = useData();
+  const [title, setTitle] = useState(data.loveLetter.title);
+  const [content, setContent] = useState(data.loveLetter.content);
 
-  useEffect(() => {
-    fetchLoveLetter();
-  }, []);
-
-  const fetchLoveLetter = async () => {
-    try {
-      const response = await axios.get(`${BACKEND_URL}/api/love-letter`);
-      setTitle(response.data.title);
-      setContent(response.data.content);
-    } catch (error) {
-      console.error('Error fetching love letter:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSave = async (e) => {
+  const handleSave = (e) => {
     e.preventDefault();
-    setSaving(true);
-
-    try {
-      const token = localStorage.getItem('admin_token');
-      await axios.put(`${BACKEND_URL}/api/love-letter`, 
-        { title, content },
-        { headers: { 'Authorization': `Bearer ${token}` }}
-      );
-      alert('Love letter saved successfully!');
-    } catch (error) {
-      alert('Error saving love letter: ' + (error.response?.data?.detail || error.message));
-    } finally {
-      setSaving(false);
-    }
+    updateLoveLetter({ title, content });
+    alert('Love letter saved successfully!');
   };
-
-  if (loading) {
-    return <div className="text-center py-8" style={{ color: '#8B4513', fontFamily: 'Georgia, serif' }}>Loading...</div>;
-  }
 
   return (
     <div>
@@ -94,14 +59,13 @@ const LoveLetterTab = () => {
 
         <button
           type="submit"
-          disabled={saving}
-          className="px-8 py-3 rounded-lg font-bold text-white flex items-center gap-2 transition-all hover:shadow-lg disabled:opacity-50"
+          className="px-8 py-3 rounded-lg font-bold text-white flex items-center gap-2 transition-all hover:shadow-lg"
           style={{
             background: 'linear-gradient(135deg, #D4A574 0%, #8B7355 100%)',
             fontFamily: 'Georgia, serif'
           }}>
           <Save size={20} />
-          {saving ? 'Saving...' : 'Save Love Letter'}
+          Save Love Letter
         </button>
       </form>
     </div>
