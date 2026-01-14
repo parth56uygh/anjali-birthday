@@ -162,7 +162,7 @@ async def update_love_letter(letter_update: LoveLetterUpdate, admin = Depends(ge
 # Message Endpoints
 @api_router.get("/messages")
 async def get_messages():
-    messages = await db.messages.find().sort("order", 1).to_list(100)
+    messages = await db.messages.find({}, {'id': 1, 'title': 1, 'message': 1, 'order': 1}).sort("order", 1).to_list(100)
     return [{
         "id": msg['id'],
         "title": msg['title'],
