@@ -75,8 +75,8 @@ const BirthdayWebsite = () => {
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    // Simple password check (you can customize this)
-    if (password.toLowerCase() === 'iloveyou' || password.toLowerCase() === 'love') {
+    // Check password against settings
+    if (password.toLowerCase() === data.settings.unlock_password.toLowerCase()) {
       setLetterUnlocked(true);
       setShowPasswordModal(false);
       setActiveSection('letter');
