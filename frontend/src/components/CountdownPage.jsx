@@ -80,9 +80,9 @@ const CountdownPage = ({ targetDate, onCountdownComplete }) => {
         </div>
       ))}
 
-      <div className="text-center z-10 px-4">
+      <div className="text-center z-10 px-4 w-full max-w-4xl mx-auto">
         {/* Paper card container */}
-        <div className="bg-white rounded-lg p-12 shadow-2xl relative"
+        <div className="bg-white rounded-lg p-4 sm:p-8 md:p-12 shadow-2xl relative"
              style={{
                backgroundImage: 'url("data:image/svg+xml,%3Csvg width="100" height="100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="paper"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.04" result="noise" numOctaves="5"/%3E%3CfeDiffuseLighting in="noise" lighting-color="%23fff" surfaceScale="1"%3E%3CfeDistantLight azimuth="45" elevation="60"/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width="100" height="100" filter="url(%23paper)" opacity="0.3"/%3E%3C/svg%3E")',
                border: '2px solid #d4c4b0',
