@@ -1,32 +1,22 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock } from 'lucide-react';
-import axios from 'axios';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+import { useData } from '../context/DataContext';
 
 const AdminLogin = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { checkAdminPassword } = useData();
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    setError('');
-    setLoading(true);
-
-    try {
-      const response = await axios.post(`${BACKEND_URL}/api/admin/login`, { password });
-      
-      if (response.data.success) {
-        localStorage.setItem('admin_token', response.data.token);
-        navigate('/admin/dashboard');
-      }
-    } catch (err) {
-      setError(err.response?.data?.detail || 'Invalid password');
-    } finally {
-      setLoading(false);
+    
+    if (checkAdminPassword(password)) {
+      localStorage.setItem('admin_logged_in', 'true');
+      navigate('/admin/dashboard');
+    } else {
+      setError('Invalid password');
     }
   };
 
@@ -38,7 +28,7 @@ const AdminLogin = () => {
       `
     }}>
       <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4 shadow-2xl" style={{
-        backgroundImage: 'url("data:image/svg+xml,%3Csvg width="100" height="100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="paper"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.04" result="noise" numOctaves="5"/%3E%3CfeDiffuseLighting in="noise" lighting-color="%23fff" surfaceScale="1"%3E%3CfeDistantLight azimuth="45" elevation="60"/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width="100" height="100" filter="url(%23paper)" opacity="0.3"/%3E%3C/svg%3E")',
+        backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\\'100\\' height=\\'100\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cfilter id=\\'paper\\'%3E%3CfeTurbulence type=\\'fractalNoise\\' baseFrequency=\\'0.04\\' result=\\'noise\\' numOctaves=\\'5\\'/%3E%3CfeDiffuseLighting in=\\'noise\\' lighting-color=\\'%23fff\\' surfaceScale=\\'1\\'%3E%3CfeDistantLight azimuth=\\'45\\' elevation=\\'60\\'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width=\\'100\\' height=\\'100\\' filter=\\'url(%23paper)\\' opacity=\\'0.3\\'/%3E%3C/svg%3E")',
         border: '3px solid #d4c4b0'
       }}>
         <div className="text-center mb-8">
@@ -80,13 +70,12 @@ const AdminLogin = () => {
 
           <button
             type="submit"
-            disabled={loading}
-            className="w-full py-3 rounded-lg font-bold text-white text-lg transition-all hover:shadow-lg disabled:opacity-50"
+            className="w-full py-3 rounded-lg font-bold text-white text-lg transition-all hover:shadow-lg"
             style={{
               background: 'linear-gradient(135deg, #D4A574 0%, #8B7355 100%)',
               fontFamily: 'Georgia, serif'
             }}>
-            {loading ? 'Logging in...' : 'Login'}
+            Login
           </button>
         </form>
 
