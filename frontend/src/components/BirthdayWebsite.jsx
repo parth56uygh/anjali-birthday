@@ -94,6 +94,16 @@ const BirthdayWebsite = () => {
     { id: 'messages', label: 'Messages', icon: MessageCircle }
   ];
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{
+        background: 'linear-gradient(135deg, #f5e6d3 0%, #e8d5c4 100%)'
+      }}>
+        <p style={{ color: '#8B4513', fontFamily: 'Georgia, serif', fontSize: '24px' }}>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen" style={{ 
       background: 'linear-gradient(135deg, #f5e6d3 0%, #e8d5c4 100%)',
