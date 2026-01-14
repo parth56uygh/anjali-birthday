@@ -204,8 +204,9 @@ async def delete_message(message_id: str, admin = Depends(get_current_admin)):
 # Photo Endpoints
 @api_router.get("/photos")
 async def get_photos():
-    photos = await db.photos.find().sort("order", 1).to_list(100)
-    backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001')
+    photos = await db.photos.find({}, {'id': 1, 'url': 1, 'caption': 1, 'order': 1}).sort("order", 1).to_list(100)
+    # Use APP_URL which Emergent provides, fallback to REACT_APP_BACKEND_URL for local dev
+    backend_url = os.environ.get('APP_URL', os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001'))
     
     return [{
         "id": photo['id'],
