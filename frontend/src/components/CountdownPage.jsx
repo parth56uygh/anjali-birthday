@@ -58,7 +58,7 @@ const CountdownPage = ({ targetDate, onCountdownComplete }) => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden"
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden px-4"
          style={{
            background: 'linear-gradient(135deg, #f5e6d3 0%, #e8d5c4 100%)',
            backgroundImage: `
