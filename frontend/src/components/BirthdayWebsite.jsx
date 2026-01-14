@@ -193,23 +193,23 @@ const BirthdayWebsite = () => {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
         {activeSection === 'home' && (
-          <div className="text-center py-12 animate-fadeIn">
+          <div className="text-center py-8 sm:py-12 animate-fadeIn">
             {/* Paper card */}
-            <div className="bg-white rounded-lg p-12 shadow-2xl max-w-4xl mx-auto relative mb-8"
+            <div className="bg-white rounded-lg p-6 sm:p-12 shadow-2xl max-w-4xl mx-auto relative mb-6 sm:mb-8"
                  style={{
                    backgroundImage: 'url("data:image/svg+xml,%3Csvg width="100" height="100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="paper"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.04" result="noise" numOctaves="5"/%3E%3CfeDiffuseLighting in="noise" lighting-color="%23fff" surfaceScale="1"%3E%3CfeDistantLight azimuth="45" elevation="60"/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width="100" height="100" filter="url(%23paper)" opacity="0.3"/%3E%3C/svg%3E")',
                    border: '3px solid #d4c4b0',
                    boxShadow: '0 20px 60px rgba(0,0,0,0.2)'
                  }}>
-              <Sparkles className="text-pink-600 mx-auto mb-4" size={64} />
-              <h2 className="text-5xl md:text-7xl font-bold mb-4" style={{ 
+              <Sparkles className="text-pink-600 mx-auto mb-4" size={48} />
+              <h2 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4" style={{ 
                 color: '#8B4513',
                 fontFamily: 'Georgia, serif',
                 textShadow: '2px 2px 4px rgba(139, 69, 19, 0.1)'
               }}>
                 Happy Birthday!
               </h2>
-              <p className="text-2xl md:text-3xl mb-8" style={{ 
+              <p className="text-lg sm:text-2xl md:text-3xl mb-6 sm:mb-8" style={{ 
                 color: '#A0522D',
                 fontFamily: 'Georgia, serif' 
               }}>
@@ -217,12 +217,12 @@ const BirthdayWebsite = () => {
               </p>
               
               {/* Decorative tape */}
-              <div className="absolute top-8 right-8 w-16 h-8 bg-yellow-100 opacity-40 rotate-45" style={{
+              <div className="absolute top-4 sm:top-8 right-4 sm:right-8 w-12 sm:w-16 h-6 sm:h-8 bg-yellow-100 opacity-40 rotate-45" style={{
                 boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
               }}></div>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto mt-8 sm:mt-12">
               {[
                 { icon: Heart, title: 'Lover of Taylor Swift', text: 'Your passion for music makes every moment special' },
                 { icon: Sparkles, title: 'Makeup Artist Extraordinaire', text: 'You make the world more beautiful' },
@@ -230,17 +230,17 @@ const BirthdayWebsite = () => {
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-lg p-8 shadow-xl hover:shadow-2xl transition-all hover:transform hover:scale-105 hover:-rotate-1"
+                  className="bg-white rounded-lg p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all hover:transform hover:scale-105 hover:-rotate-1"
                   style={{
                     backgroundImage: 'url("data:image/svg+xml,%3Csvg width="100" height="100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="paper"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.04" result="noise" numOctaves="5"/%3E%3CfeDiffuseLighting in="noise" lighting-color="%23fff" surfaceScale="1"%3E%3CfeDistantLight azimuth="45" elevation="60"/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width="100" height="100" filter="url(%23paper)" opacity="0.3"/%3E%3C/svg%3E")',
                     border: '2px solid #d4c4b0',
                     animation: `slideUp 0.6s ease-out ${index * 0.2}s backwards`
                   }}>
-                  <item.icon className="text-pink-600 mx-auto mb-4" size={48} fill="currentColor" />
-                  <h3 className="text-xl font-bold mb-2" style={{ color: '#8B4513', fontFamily: 'Georgia, serif' }}>
+                  <item.icon className="text-pink-600 mx-auto mb-4" size={40} fill="currentColor" />
+                  <h3 className="text-lg sm:text-xl font-bold mb-2" style={{ color: '#8B4513', fontFamily: 'Georgia, serif' }}>
                     {item.title}
                   </h3>
-                  <p style={{ color: '#A0522D' }}>{item.text}</p>
+                  <p className="text-sm sm:text-base" style={{ color: '#A0522D' }}>{item.text}</p>
                 </div>
               ))}
             </div>
