@@ -147,11 +147,11 @@ const BirthdayWebsite = () => {
         borderBottom: '3px solid #d4c4b0',
         backgroundImage: 'url("data:image/svg+xml,%3Csvg width="100" height="100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="paper"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.04" result="noise" numOctaves="5"/%3E%3CfeDiffuseLighting in="noise" lighting-color="%23fff" surfaceScale="1"%3E%3CfeDistantLight azimuth="45" elevation="60"/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width="100" height="100" filter="url(%23paper)" opacity="0.3"/%3E%3C/svg%3E")'
       }}>
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center gap-3">
-              <Heart className="text-pink-600" size={32} fill="currentColor" />
-              <h1 className="text-2xl md:text-3xl font-bold" style={{ 
+        <div className="max-w-7xl mx-auto px-2 sm:px-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between py-3 sm:h-20">
+            <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-0">
+              <Heart className="text-pink-600" size={24} fill="currentColor" />
+              <h1 className="text-lg sm:text-2xl md:text-3xl font-bold text-center" style={{ 
                 color: '#8B4513',
                 fontFamily: 'Georgia, serif',
                 textShadow: '2px 2px 4px rgba(139, 69, 19, 0.1)'
@@ -159,14 +159,14 @@ const BirthdayWebsite = () => {
                 Happy Birthday {data.settings?.girlfriendName || 'Anjali'}!
               </h1>
             </div>
-            <div className="hidden md:flex gap-4">
+            <div className="flex gap-1 sm:gap-2 md:gap-4 flex-wrap justify-center w-full sm:w-auto">
               {sections.map(section => {
                 const Icon = section.icon;
                 return (
                   <button
                     key={section.id}
                     onClick={() => section.action ? section.action() : setActiveSection(section.id)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                    className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all text-xs sm:text-base ${
                       activeSection === section.id
                         ? 'shadow-lg'
                         : 'hover:shadow-md'
@@ -180,36 +180,12 @@ const BirthdayWebsite = () => {
                       fontFamily: 'Georgia, serif',
                       fontWeight: 'bold'
                     }}>
-                    <Icon size={18} />
-                    <span>{section.label}</span>
+                    <Icon size={14} className="sm:w-[18px] sm:h-[18px]" />
+                    <span className="hidden sm:inline">{section.label}</span>
                   </button>
                 );
               })}
             </div>
-          </div>
-          {/* Mobile navigation */}
-          <div className="md:hidden flex gap-2 pb-4 overflow-x-auto">
-            {sections.map(section => {
-              const Icon = section.icon;
-              return (
-                <button
-                  key={section.id}
-                  onClick={() => section.action ? section.action() : setActiveSection(section.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all whitespace-nowrap`}
-                  style={{
-                    background: activeSection === section.id 
-                      ? 'linear-gradient(135deg, #D4A574 0%, #8B7355 100%)'
-                      : 'linear-gradient(135deg, #fff8f0 0%, #fdf6ed 100%)',
-                    color: activeSection === section.id ? 'white' : '#8B4513',
-                    border: '2px solid #d4c4b0',
-                    fontFamily: 'Georgia, serif',
-                    fontWeight: 'bold'
-                  }}>
-                  <Icon size={16} />
-                  <span className="text-sm">{section.label}</span>
-                </button>
-              );
-            })}
           </div>
         </div>
       </nav>
