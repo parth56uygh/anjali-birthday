@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Sparkles } from 'lucide-react';
-import axios from 'axios';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+import { useData } from '../context/DataContext';
 
 const CountdownPage = ({ targetDate, onCountdownComplete }) => {
+  const { data } = useData();
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   const [hearts, setHearts] = useState([]);
-  const [girlfriendName, setGirlfriendName] = useState('Anjali');
-
-  useEffect(() => {
-    // Fetch girlfriend name
-    axios.get(`${BACKEND_URL}/api/settings`)
-      .then(res => setGirlfriendName(res.data.girlfriend_name))
-      .catch(err => console.error('Error fetching settings:', err));
-  }, []);
 
   function calculateTimeLeft() {
     const difference = new Date(targetDate) - new Date();
