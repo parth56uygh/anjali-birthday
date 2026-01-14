@@ -1,0 +1,111 @@
+import React, { useState } from 'react';
+import { Play, Pause, SkipForward, SkipBack, Music } from 'lucide-react';
+
+const MusicPlayer = ({ playlist }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const currentTrack = playlist[currentTrackIndex];
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleNext = () => {
+    setCurrentTrackIndex((prev) => (prev + 1) % playlist.length);
+  };
+
+  const handlePrevious = () => {
+    setCurrentTrackIndex((prev) => (prev - 1 + playlist.length) % playlist.length);
+  };
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-50">
+      {/* Expanded Playlist */}
+      {isExpanded && (
+        <div className="bg-white/95 backdrop-blur-md border-t border-pink-200 max-h-96 overflow-y-auto">
+          <div className="max-w-4xl mx-auto p-4">
+            <h3 className="text-xl font-bold text-purple-700 mb-4 flex items-center gap-2">
+              <Music size={24} className="text-pink-500" />
+              Taylor Swift Playlist
+            </h3>
+            <div className="space-y-2">
+              {playlist.map((track, index) => (
+                <button
+                  key={track.id}
+                  onClick={() => setCurrentTrackIndex(index)}
+                  className={`w-full text-left p-4 rounded-xl transition-all ${
+                    currentTrackIndex === index
+                      ? 'bg-pink-100 border-2 border-pink-400'
+                      : 'bg-gray-50 hover:bg-pink-50 border-2 border-transparent'
+                  }`}>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-bold text-purple-700">{track.title}</p>
+                      <p className="text-sm text-purple-600">{track.artist} • {track.album}</p>
+                    </div>
+                    {currentTrackIndex === index && isPlaying && (
+                      <div className="flex gap-1">
+                        <div className="w-1 h-4 bg-pink-500 animate-pulse"></div>
+                        <div className="w-1 h-4 bg-pink-500 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-1 h-4 bg-pink-500 animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                      </div>
+                    )}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Player Controls */}
+      <div className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 text-white shadow-2xl">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            {/* Current Track Info */}
+            <div className="flex-1 min-w-0">
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="text-left hover:opacity-80 transition-opacity">
+                <p className="font-bold text-lg truncate">{currentTrack.title}</p>
+                <p className="text-sm opacity-90 truncate">{currentTrack.artist}</p>
+              </button>
+            </div>
+
+            {/* Controls */}
+            <div className="flex items-center gap-4">
+              <button
+                onClick={handlePrevious}
+                className="hover:scale-110 transition-transform">
+                <SkipBack size={24} fill="white" />
+              </button>
+              
+              <button
+                onClick={handlePlayPause}
+                className="bg-white text-pink-500 rounded-full p-3 hover:scale-110 transition-transform shadow-lg">
+                {isPlaying ? <Pause size={24} fill="currentColor" /> : <Play size={24} fill="currentColor" />}
+              </button>
+              
+              <button
+                onClick={handleNext}
+                className="hover:scale-110 transition-transform">
+                <SkipForward size={24} fill="white" />
+              </button>
+            </div>
+
+            {/* Track Counter */}
+            <div className="flex-1 text-right hidden md:block">
+              <p className="text-sm opacity-90">
+                Track {currentTrackIndex + 1} of {playlist.length}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default MusicPlayer;
