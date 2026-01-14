@@ -61,7 +61,10 @@ const MusicPlayer = ({ playlist }) => {
       )}
 
       {/* Player Controls */}
-      <div className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 text-white shadow-2xl">
+      <div className="text-white shadow-2xl" style={{
+        background: 'linear-gradient(135deg, #8B7355 0%, #D4A574 50%, #8B7355 100%)',
+        borderTop: '3px solid #d4c4b0'
+      }}>
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             {/* Current Track Info */}
