@@ -1,58 +1,29 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload, Trash2, Edit2, Save, X } from 'lucide-react';
-import axios from 'axios';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+import { useData } from '../../context/DataContext';
 
 const PhotosTab = () => {
-  const [photos, setPhotos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data, addPhoto, updatePhoto, deletePhoto } = useData();
   const [uploading, setUploading] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [editCaption, setEditCaption] = useState('');
 
-  const fetchPhotos = async () => {
-    try {
-      const response = await axios.get(`${BACKEND_URL}/api/photos`);
-      setPhotos(response.data);
-    } catch (error) {
-      console.error('Error fetching photos:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchPhotos();
-  }, []);
-
-  const onDrop = useCallback(async (acceptedFiles) => {
-    for (const file of acceptedFiles) {
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.forEach(file => {
       const caption = prompt('Enter a caption for this photo:');
-      if (!caption) continue;
+      if (!caption) return;
 
-      setUploading(true);
-      const formData = new FormData();
-      formData.append('photo', file);
-      formData.append('caption', caption);
-
-      try {
-        const token = localStorage.getItem('admin_token');
-        await axios.post(`${BACKEND_URL}/api/photos/upload`, formData, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data'
-          }
+      const reader = new FileReader();
+      reader.onload = () => {
+        addPhoto({
+          url: reader.result, // Base64 encoded image
+          caption: caption
         });
-        await fetchPhotos();
-      } catch (error) {
-        alert('Error uploading photo: ' + (error.response?.data?.detail || error.message));
-      } finally {
-        setUploading(false);
-      }
-    }
-  }, []);
+      };
+      reader.readAsDataURL(file);
+    });
+  }, [addPhoto]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -60,18 +31,9 @@ const PhotosTab = () => {
     multiple: true
   });
 
-  const handleDelete = async (photoId) => {
+  const handleDelete = (photoId) => {
     if (!window.confirm('Are you sure you want to delete this photo?')) return;
-
-    try {
-      const token = localStorage.getItem('admin_token');
-      await axios.delete(`${BACKEND_URL}/api/photos/${photoId}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      await fetchPhotos();
-    } catch (error) {
-      alert('Error deleting photo: ' + (error.response?.data?.detail || error.message));
-    }
+    deletePhoto(photoId);
   };
 
   const handleEditStart = (photo) => {
@@ -79,23 +41,10 @@ const PhotosTab = () => {
     setEditCaption(photo.caption);
   };
 
-  const handleEditSave = async (photoId) => {
-    try {
-      const token = localStorage.getItem('admin_token');
-      await axios.put(`${BACKEND_URL}/api/photos/${photoId}`, 
-        { caption: editCaption },
-        { headers: { 'Authorization': `Bearer ${token}` }}
-      );
-      setEditingId(null);
-      await fetchPhotos();
-    } catch (error) {
-      alert('Error updating photo: ' + (error.response?.data?.detail || error.message));
-    }
+  const handleEditSave = (photoId) => {
+    updatePhoto(photoId, { caption: editCaption });
+    setEditingId(null);
   };
-
-  if (loading) {
-    return <div className="text-center py-8" style={{ color: '#8B4513', fontFamily: 'Georgia, serif' }}>Loading photos...</div>;
-  }
 
   return (
     <div>
@@ -117,17 +66,17 @@ const PhotosTab = () => {
           {isDragActive ? 'Drop photos here...' : 'Drag & drop photos here'}
         </p>
         <p style={{ color: '#A0522D' }}>or click to select files</p>
-        {uploading && <p className="mt-4 text-pink-600">Uploading...</p>}
+        <p className="text-sm mt-2" style={{ color: '#A0522D' }}>Photos are stored in your browser</p>
       </div>
 
       {/* Photos Grid */}
-      {photos.length === 0 ? (
+      {data.photos.length === 0 ? (
         <div className="text-center py-8" style={{ color: '#A0522D', fontFamily: 'Georgia, serif' }}>
           No photos yet. Upload some to get started!
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {photos.map((photo) => (
+          {data.photos.map((photo) => (
             <div key={photo.id} className="bg-white rounded-lg shadow-lg overflow-hidden" style={{
               border: '2px solid #d4c4b0'
             }}>
