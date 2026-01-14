@@ -43,9 +43,13 @@ const MusicPlayer = ({ playlist }) => {
                   onClick={() => setCurrentTrackIndex(index)}
                   className={`w-full text-left p-4 rounded-xl transition-all ${
                     currentTrackIndex === index
-                      ? 'bg-pink-100 border-2 border-pink-400'
+                      ? 'border-2'
                       : 'bg-gray-50 hover:bg-pink-50 border-2 border-transparent'
-                  }`}>
+                  }`}
+                  style={{
+                    background: currentTrackIndex === index ? 'linear-gradient(135deg, #fff8f0 0%, #fdf6ed 100%)' : '',
+                    borderColor: currentTrackIndex === index ? '#D4A574' : 'transparent'
+                  }}>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-bold text-purple-700">{track.title}</p>
