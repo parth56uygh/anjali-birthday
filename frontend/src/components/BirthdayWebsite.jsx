@@ -316,13 +316,13 @@ const BirthdayWebsite = () => {
           </div>
         )}
 
-        {activeSection === 'gallery' && <PhotoGallery photos={birthdayData.photos} />}
-        {activeSection === 'letter' && letterUnlocked && <LoveLetter letter={birthdayData.loveLetter} />}
-        {activeSection === 'messages' && <PersonalMessages messages={birthdayData.personalMessages} />}
+        {activeSection === 'gallery' && <PhotoGallery photos={data.photos} />}
+        {activeSection === 'letter' && letterUnlocked && <LoveLetter letter={data.loveLetter} />}
+        {activeSection === 'messages' && <PersonalMessages messages={data.messages} />}
       </main>
 
       {/* Music Player */}
-      <MusicPlayer playlist={birthdayData.playlist} />
+      <MusicPlayer playlist={data.playlist} />
 
       <style jsx>{`
         @keyframes fall {
