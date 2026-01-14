@@ -2,7 +2,7 @@
 
 export const birthdayData = {
   name: "Anjali",
-  birthdayDate: "2020-02-04T00:00:00", // Temporarily set to past for testing
+  birthdayDate: "2026-02-04T00:00:00",
   
   loveLetter: {
     title: "A Letter From My Heart",
