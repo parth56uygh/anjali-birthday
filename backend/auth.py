@@ -5,7 +5,8 @@ import os
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'your-secret-key-change-this')
+# JWT_SECRET_KEY must be set in environment - no fallback for security
+SECRET_KEY = os.environ['JWT_SECRET_KEY']
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 1440  # 24 hours
 
