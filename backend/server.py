@@ -111,7 +111,7 @@ async def admin_login(login: AdminLogin):
 # Settings Endpoints
 @api_router.get("/settings")
 async def get_settings():
-    settings = await db.settings.find_one()
+    settings = await db.settings.find_one({}, {'birthday_date': 1, 'unlock_password': 1, 'girlfriend_name': 1})
     if not settings:
         raise HTTPException(status_code=404, detail="Settings not found")
     
