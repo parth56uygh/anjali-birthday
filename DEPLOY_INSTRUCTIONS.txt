@@ -1,0 +1,56 @@
+===========================================
+GITHUB PAGES DEPLOYMENT INSTRUCTIONS
+===========================================
+
+STEP 1: Create GitHub Repository
+---------------------------------
+1. Go to https://github.com/new
+2. Repository name: anjali-birthday (or any name you like)
+3. Make it PUBLIC (required for free GitHub Pages)
+4. Don't initialize with README
+5. Click "Create repository"
+
+STEP 2: Update package.json Homepage
+------------------------------------
+Open /app/frontend/package.json and change:
+  "homepage": "."
+To:
+  "homepage": "https://YOUR-USERNAME.github.io/YOUR-REPO-NAME"
+
+Example:
+  "homepage": "https://johnsmith.github.io/anjali-birthday"
+
+STEP 3: Run These Commands in Emergent Terminal
+-----------------------------------------------
+cd /app/frontend
+git config --global user.email "your-email@example.com"
+git config --global user.name "Your Name"
+git init
+git add .
+git commit -m "Initial commit: Birthday website"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
+git push -u origin main
+
+STEP 4: Deploy to GitHub Pages
+------------------------------
+cd /app/frontend
+yarn deploy
+
+STEP 5: Enable GitHub Pages
+---------------------------
+1. Go to your repository on GitHub
+2. Click "Settings" tab
+3. Click "Pages" in left sidebar
+4. Under "Source", select "gh-pages" branch
+5. Click "Save"
+
+Your site will be live at:
+https://YOUR-USERNAME.github.io/YOUR-REPO-NAME
+
+IMPORTANT NOTES:
+- Replace YOUR-USERNAME with your GitHub username
+- Replace YOUR-REPO-NAME with your repository name
+- If push asks for credentials, use Personal Access Token (not password)
+  Generate token at: https://github.com/settings/tokens
+
