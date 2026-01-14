@@ -61,9 +61,9 @@ const MusicPlayer = ({ playlist }) => {
                     </div>
                     {currentTrackIndex === index && isPlaying && (
                       <div className="flex gap-1">
-                        <div className="w-1 h-4 bg-pink-500 animate-pulse"></div>
-                        <div className="w-1 h-4 bg-pink-500 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                        <div className="w-1 h-4 bg-pink-500 animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                        <div className="w-1 h-4 animate-pulse" style={{ backgroundColor: '#D4A574' }}></div>
+                        <div className="w-1 h-4 animate-pulse" style={{ backgroundColor: '#D4A574', animationDelay: '0.2s' }}></div>
+                        <div className="w-1 h-4 animate-pulse" style={{ backgroundColor: '#D4A574', animationDelay: '0.4s' }}></div>
                       </div>
                     )}
                   </div>
