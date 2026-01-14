@@ -156,7 +156,7 @@ const BirthdayWebsite = () => {
                 fontFamily: 'Georgia, serif',
                 textShadow: '2px 2px 4px rgba(139, 69, 19, 0.1)'
               }}>
-                Happy Birthday {data.settings?.girlfriend_name || 'Anjali'}!
+                Happy Birthday {data.settings?.girlfriendName || 'Anjali'}!
               </h1>
             </div>
             <div className="hidden md:flex gap-4">
