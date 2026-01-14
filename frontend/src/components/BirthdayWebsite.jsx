@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Heart, Music, Image as ImageIcon, Mail, MessageCircle, Sparkles, Lock } from 'lucide-react';
 import PhotoGallery from './PhotoGallery';
 import LoveLetter from './LoveLetter';
 import PersonalMessages from './PersonalMessages';
 import MusicPlayer from './MusicPlayer';
-import { birthdayData } from '../mock';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const BirthdayWebsite = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -13,10 +15,44 @@ const BirthdayWebsite = () => {
   const [password, setPassword] = useState('');
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordError, setPasswordError] = useState('');
+  
+  const [data, setData] = useState({
+    photos: [],
+    loveLetter: null,
+    messages: [],
+    playlist: [],
+    settings: null
+  });
+  const [loading, setLoading] = useState(true);
 
   React.useEffect(() => {
     triggerConfetti();
+    fetchAllData();
   }, []);
+
+  const fetchAllData = async () => {
+    try {
+      const [photosRes, letterRes, messagesRes, playlistRes, settingsRes] = await Promise.all([
+        axios.get(`${BACKEND_URL}/api/photos`),
+        axios.get(`${BACKEND_URL}/api/love-letter`),
+        axios.get(`${BACKEND_URL}/api/messages`),
+        axios.get(`${BACKEND_URL}/api/playlist`),
+        axios.get(`${BACKEND_URL}/api/settings`)
+      ]);
+
+      setData({
+        photos: photosRes.data,
+        loveLetter: letterRes.data,
+        messages: messagesRes.data,
+        playlist: playlistRes.data,
+        settings: settingsRes.data
+      });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const triggerConfetti = () => {
     const newConfetti = Array.from({ length: 50 }, (_, i) => ({
