@@ -109,7 +109,6 @@ const PhotoGallery = ({ photos }) => {
           }
           to {
             opacity: 1;
-            transform: translateY(0) rotate(${(index % 3 - 1) * 2}deg) scale(1);
           }
         }
         
