@@ -1,41 +1,26 @@
 import React, { useState, useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import CountdownPage from "./components/CountdownPage";
 import BirthdayWebsite from "./components/BirthdayWebsite";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
-import axios from "axios";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+import { DataProvider, useData } from "./context/DataContext";
 
 const Home = () => {
+  const { data } = useData();
   const [isUnlocked, setIsUnlocked] = useState(false);
-  const [birthdayDate, setBirthdayDate] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        const response = await axios.get(`${BACKEND_URL}/api/settings`);
-        const date = response.data.birthday_date;
-        setBirthdayDate(date);
-        
-        // Check if birthday has passed
-        const now = new Date();
-        const birthday = new Date(date);
-        if (now >= birthday) {
-          setIsUnlocked(true);
-        }
-      } catch (error) {
-        console.error('Error fetching settings:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    fetchSettings();
-  }, []);
+    // Check if birthday has passed
+    const now = new Date();
+    const birthday = new Date(data.settings.birthdayDate);
+    if (now >= birthday) {
+      setIsUnlocked(true);
+    }
+    setLoading(false);
+  }, [data.settings.birthdayDate]);
 
   const handleCountdownComplete = () => {
     setIsUnlocked(true);
@@ -54,7 +39,7 @@ const Home = () => {
   if (!isUnlocked) {
     return (
       <CountdownPage
-        targetDate={birthdayDate}
+        targetDate={data.settings.birthdayDate}
         onCountdownComplete={handleCountdownComplete}
       />
     );
@@ -66,13 +51,15 @@ const Home = () => {
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        </Routes>
-      </BrowserRouter>
+      <DataProvider>
+        <HashRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          </Routes>
+        </HashRouter>
+      </DataProvider>
     </div>
   );
 }
