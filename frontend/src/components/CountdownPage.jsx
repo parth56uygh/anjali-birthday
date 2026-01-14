@@ -100,7 +100,7 @@ const CountdownPage = ({ targetDate, onCountdownComplete }) => {
             <div className="flex items-center justify-center gap-3 mb-4">
               <Sparkles className="text-pink-400" size={32} />
               <h1 className="text-5xl md:text-7xl font-bold" style={{ color: '#8B4513' }}>
-                {girlfriendName}
+                {data.settings.girlfriendName}
               </h1>
               <Sparkles className="text-pink-400" size={32} />
             </div>
