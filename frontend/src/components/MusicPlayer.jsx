@@ -24,7 +24,10 @@ const MusicPlayer = ({ playlist }) => {
     <div className="fixed bottom-0 left-0 right-0 z-50">
       {/* Expanded Playlist */}
       {isExpanded && (
-        <div className="bg-white/95 backdrop-blur-md border-t border-pink-200 max-h-96 overflow-y-auto">
+        <div className="bg-white/95 backdrop-blur-md border-t-3 max-h-96 overflow-y-auto" style={{
+          borderTop: '3px solid #d4c4b0',
+          backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'paper\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.04\' result=\'noise\' numOctaves=\'5\'/%3E%3CfeDiffuseLighting in=\'noise\' lighting-color=\'%23fff\' surfaceScale=\'1\'%3E%3CfeDistantLight azimuth=\'45\' elevation=\'60\'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23paper)\' opacity=\'0.3\'/%3E%3C/svg%3E")'
+        }}>
           <div className="max-w-4xl mx-auto p-4">
             <h3 className="text-xl font-bold text-purple-700 mb-4 flex items-center gap-2">
               <Music size={24} className="text-pink-500" />
