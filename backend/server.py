@@ -10,15 +10,16 @@ from typing import List, Optional
 from datetime import datetime
 import shutil
 
+# Load environment variables FIRST before other imports
+ROOT_DIR = Path(__file__).parent
+load_dotenv(ROOT_DIR / '.env')
+
 from models import (
     Settings, SettingsUpdate, LoveLetter, LoveLetterUpdate,
     Message, MessageCreate, MessageUpdate, Photo, PhotoUpdate,
     AdminLogin, Song
 )
 from auth import verify_password, get_password_hash, create_access_token, verify_token
-
-ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / '.env')
 
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
