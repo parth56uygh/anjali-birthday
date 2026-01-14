@@ -101,7 +101,8 @@ const MusicPlayer = ({ playlist }) => {
               
               <button
                 onClick={handlePlayPause}
-                className="bg-white text-pink-500 rounded-full p-3 hover:scale-110 transition-transform shadow-lg">
+                className="bg-white rounded-full p-3 hover:scale-110 transition-transform shadow-lg"
+                style={{ color: '#8B7355' }}>
                 {isPlaying ? <Pause size={24} fill="currentColor" /> : <Play size={24} fill="currentColor" />}
               </button>
               
