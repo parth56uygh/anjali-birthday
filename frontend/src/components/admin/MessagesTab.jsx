@@ -1,73 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Plus, Edit2, Trash2, Save, X } from 'lucide-react';
-import axios from 'axios';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+import { useData } from '../../context/DataContext';
 
 const MessagesTab = () => {
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data, addMessage, updateMessage, deleteMessage } = useData();
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({ title: '', message: '' });
 
-  useEffect(() => {
-    fetchMessages();
-  }, []);
-
-  const fetchMessages = async () => {
-    try {
-      const response = await axios.get(`${BACKEND_URL}/api/messages`);
-      setMessages(response.data);
-    } catch (error) {
-      console.error('Error fetching messages:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleAdd = async (e) => {
+  const handleAdd = (e) => {
     e.preventDefault();
-
-    try {
-      const token = localStorage.getItem('admin_token');
-      await axios.post(`${BACKEND_URL}/api/messages`, formData, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      setIsAdding(false);
-      setFormData({ title: '', message: '' });
-      await fetchMessages();
-    } catch (error) {
-      alert('Error adding message: ' + (error.response?.data?.detail || error.message));
-    }
+    addMessage(formData);
+    setIsAdding(false);
+    setFormData({ title: '', message: '' });
   };
 
-  const handleUpdate = async (messageId) => {
-    try {
-      const token = localStorage.getItem('admin_token');
-      await axios.put(`${BACKEND_URL}/api/messages/${messageId}`, formData, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      setEditingId(null);
-      setFormData({ title: '', message: '' });
-      await fetchMessages();
-    } catch (error) {
-      alert('Error updating message: ' + (error.response?.data?.detail || error.message));
-    }
+  const handleUpdate = (messageId) => {
+    updateMessage(messageId, formData);
+    setEditingId(null);
+    setFormData({ title: '', message: '' });
   };
 
-  const handleDelete = async (messageId) => {
+  const handleDelete = (messageId) => {
     if (!window.confirm('Are you sure you want to delete this message?')) return;
-
-    try {
-      const token = localStorage.getItem('admin_token');
-      await axios.delete(`${BACKEND_URL}/api/messages/${messageId}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      await fetchMessages();
-    } catch (error) {
-      alert('Error deleting message: ' + (error.response?.data?.detail || error.message));
-    }
+    deleteMessage(messageId);
   };
 
   const startEdit = (msg) => {
@@ -80,10 +36,6 @@ const MessagesTab = () => {
     setIsAdding(false);
     setFormData({ title: '', message: '' });
   };
-
-  if (loading) {
-    return <div className="text-center py-8" style={{ color: '#8B4513', fontFamily: 'Georgia, serif' }}>Loading messages...</div>;
-  }
 
   return (
     <div>
@@ -155,13 +107,13 @@ const MessagesTab = () => {
       )}
 
       {/* Messages List */}
-      {messages.length === 0 ? (
+      {data.messages.length === 0 ? (
         <div className="text-center py-8" style={{ color: '#A0522D', fontFamily: 'Georgia, serif' }}>
           No messages yet. Add some to get started!
         </div>
       ) : (
         <div className="space-y-4">
-          {messages.map((msg) => (
+          {data.messages.map((msg) => (
             <div key={msg.id} className="bg-white rounded-lg p-6 shadow-lg" style={{ border: '2px solid #d4c4b0' }}>
               <div className="flex items-start justify-between">
                 <div className="flex-1">
