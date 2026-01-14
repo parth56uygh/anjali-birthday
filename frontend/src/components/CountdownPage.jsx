@@ -143,8 +143,8 @@ const CountdownPage = ({ targetDate, onCountdownComplete }) => {
           </div>
 
           {/* Message */}
-          <div className="mt-12 animate-pulse">
-            <p className="text-xl md:text-2xl font-medium" style={{ 
+          <div className="mt-8 sm:mt-12 animate-pulse">
+            <p className="text-base sm:text-xl md:text-2xl font-medium px-2" style={{ 
               color: '#8B4513',
               fontFamily: 'Georgia, serif' 
             }}>
@@ -153,10 +153,10 @@ const CountdownPage = ({ targetDate, onCountdownComplete }) => {
           </div>
 
           {/* Decorative tape */}
-          <div className="absolute top-8 right-8 w-16 h-8 bg-yellow-100 opacity-40 rotate-45" style={{
+          <div className="absolute top-4 sm:top-8 right-4 sm:right-8 w-12 sm:w-16 h-6 sm:h-8 bg-yellow-100 opacity-40 rotate-45" style={{
             boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
           }}></div>
-          <div className="absolute bottom-8 left-8 w-16 h-8 bg-yellow-100 opacity-40 -rotate-45" style={{
+          <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 w-12 sm:w-16 h-6 sm:h-8 bg-yellow-100 opacity-40 -rotate-45" style={{
             boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
           }}></div>
         </div>
