@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/anjali-birthday/static/css/main.064b898e.css",
+    "main.js": "/anjali-birthday/static/js/main.dc28527b.js",
+    "index.html": "/anjali-birthday/index.html",
+    "main.064b898e.css.map": "/anjali-birthday/static/css/main.064b898e.css.map",
+    "main.dc28527b.js.map": "/anjali-birthday/static/js/main.dc28527b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.064b898e.css",
+    "static/js/main.dc28527b.js"
+  ]
+}
