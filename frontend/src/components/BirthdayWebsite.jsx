@@ -246,7 +246,6 @@ const BirthdayWebsite = () => {
           </div>
         )}
 
-        {activeSection === 'gallery' && <PhotoGallery photos={data.photos} />}
         {activeSection === 'letter' && letterUnlocked && <LoveLetter letter={data.loveLetter} />}
         {activeSection === 'messages' && <PersonalMessages messages={data.messages} />}
       </main>
