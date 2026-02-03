@@ -54,7 +54,6 @@ const BirthdayWebsite = () => {
 
   const sections = [
     { id: 'home', label: 'Home', icon: Heart },
-    { id: 'gallery', label: 'Gallery', icon: ImageIcon },
     { id: 'letter', label: 'Love Letter', icon: letterUnlocked ? Mail : Lock, action: handleLoveLetterClick },
     { id: 'messages', label: 'Messages', icon: MessageCircle }
   ];
