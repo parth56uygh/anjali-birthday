@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Music, Image as ImageIcon, Mail, MessageCircle, Sparkles, Lock } from 'lucide-react';
-import PhotoGallery from './PhotoGallery';
+import { Heart, Music, Mail, MessageCircle, Sparkles, Lock } from 'lucide-react';
 import LoveLetter from './LoveLetter';
 import PersonalMessages from './PersonalMessages';
 import MusicPlayer from './MusicPlayer';
